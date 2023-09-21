@@ -16,21 +16,21 @@ const Countries = () => {
   const loading = useSelector((state) => state.countries.isLoading);
 
   const [search, setSearch] = useState("");
-
+  // filter the country list based on search state change
+  const filterCountryList = search
+    ? countriesList.filter((item) =>
+        item.name.common.toLowerCase().includes(search.toLowerCase())
+      )
+    : countriesList;
   useEffect(() => {
     dispatch(initializedCountries());
   }, [dispatch]);
 
-  console.log("countriesList: ", countriesList);
-
-  // We will be replacing this with data from our API.
-  // const country = {
-  //   name: {
-  //     common: "Example Country",
-  //   },
-  // };
-
-  return (
+  return loading ? (
+    <Container>
+      <h1>Loading.......</h1>
+    </Container>
+  ) : (
     <Container fluid>
       <Row>
         <Col className="mt-5 d-flex justify-content-center">
@@ -47,7 +47,7 @@ const Countries = () => {
         </Col>
       </Row>
       <Row xs={2} md={3} lg={4} className=" g-3">
-        {countriesList.map((item, index) => (
+        {filterCountryList.map((item, index) => (
           <CountryCard key={item.id + item.name.common} country={item} />
         ))}
       </Row>
