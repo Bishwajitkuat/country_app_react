@@ -21,7 +21,6 @@ const CountriesSingle = () => {
         setWather(res.data);
         setLoading(false);
       } catch (err) {
-        console.log(err.message);
         setError(true);
       } finally {
         setLoading(false);
