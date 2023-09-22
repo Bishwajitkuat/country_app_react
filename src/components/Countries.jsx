@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import CountryCard from "./CountryCard";
 import { initializedCountries } from "../features/countries/countriesSlice";
+import { Spinner } from "react-bootstrap";
 
 const Countries = () => {
   const dispatch = useDispatch();
@@ -26,11 +27,22 @@ const Countries = () => {
     dispatch(initializedCountries());
   }, [dispatch]);
 
-  return loading ? (
-    <Container>
-      <h1>Loading.......</h1>
-    </Container>
-  ) : (
+  if (loading) {
+    return (
+      <Container>
+        <Spinner
+          animation="border"
+          role="status"
+          className="center"
+          varient="info"
+        >
+          <span className="visually-hidden">Loading......</span>
+        </Spinner>
+      </Container>
+    );
+  }
+
+  return (
     <Container fluid>
       <Row>
         <Col className="mt-5 d-flex justify-content-center">

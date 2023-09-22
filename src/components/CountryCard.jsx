@@ -1,7 +1,8 @@
-import { Card, Col, ListGroup, Row } from "react-bootstrap";
+import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 function CountryCard({ country }) {
+  console.log("country : ", country);
   const currency_name = country?.currencies
     ? Object.values(country.currencies)[0].name
     : 0;
@@ -9,6 +10,14 @@ function CountryCard({ country }) {
   const currency_symbol = country?.currencies
     ? Object.values(country.currencies)[0].symbol
     : 0;
+  const language_name = country?.languages
+    ? Object.values(country.languages)[0]
+    : "not available";
+  const language_symbol = country?.languages
+    ? Object.keys(country.languages)[0].toUpperCase()
+    : "not available";
+  console.log("language_symbol :", language_symbol);
+  console.log("language_name : ", language_name);
   return (
     <Col className="mt-5">
       <LinkContainer
@@ -25,11 +34,30 @@ function CountryCard({ country }) {
               variant="flush"
               className="flex-grow-1 justify-content-end"
             >
+              <ListGroupItem>
+                <img style={{ width: "5rem" }} src={country.flags.svg} />
+              </ListGroupItem>
               <ListGroup.Item>
-                <i className="bi bi-translate me-2"></i>
+                <i className="bi bi-translate me-2">
+                  {language_name && language_symbol ? (
+                    <span>
+                      {language_name} ({language_symbol})
+                    </span>
+                  ) : (
+                    "not available"
+                  )}
+                </i>
               </ListGroup.Item>
               <ListGroup.Item>
-                {/* <i className="bi bi-cash-coin me-2">{currency_name && currency_symbol ? <span>{currency_name} ({currency_symbol})</span>}:"not available"</i> */}
+                <i className="bi bi-cash-coin me-2">
+                  {currency_name && currency_symbol ? (
+                    <span>
+                      {currency_name} ({currency_symbol})
+                    </span>
+                  ) : (
+                    "not available"
+                  )}
+                </i>
               </ListGroup.Item>
 
               <ListGroup.Item>
