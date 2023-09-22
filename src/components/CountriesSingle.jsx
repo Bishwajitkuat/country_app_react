@@ -10,7 +10,6 @@ const CountriesSingle = () => {
   const country = location.state.country;
   const [errors, setError] = useState(false);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function featchData() {
       try {
@@ -28,7 +27,7 @@ const CountriesSingle = () => {
     }
     featchData();
   }, [country.capital]);
-
+  console.log("country.flags :", country.flags);
   if (loading) {
     return (
       <Container>
@@ -52,7 +51,7 @@ const CountriesSingle = () => {
             thumbnail
             src={`https://source.unsplash.com/1600x900/?${country.capital}`}
           />
-
+          <img style={{ width: "5rem" }} src={country.flags.png} />
           <h2 className="display-4">{country.name.common}</h2>
           <h3>{country.capital}</h3>
           {errors && (

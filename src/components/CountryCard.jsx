@@ -2,7 +2,6 @@ import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 function CountryCard({ country }) {
-  console.log("country : ", country);
   const currency_name = country?.currencies
     ? Object.values(country.currencies)[0].name
     : 0;
@@ -16,8 +15,7 @@ function CountryCard({ country }) {
   const language_symbol = country?.languages
     ? Object.keys(country.languages)[0].toUpperCase()
     : "not available";
-  console.log("language_symbol :", language_symbol);
-  console.log("language_name : ", language_name);
+
   return (
     <Col className="mt-5">
       <LinkContainer
@@ -35,7 +33,7 @@ function CountryCard({ country }) {
               className="flex-grow-1 justify-content-end"
             >
               <ListGroupItem>
-                <img style={{ width: "5rem" }} src={country.flags.svg} />
+                <img style={{ width: "5rem" }} src={country.flags.png} />
               </ListGroupItem>
               <ListGroup.Item>
                 <i className="bi bi-translate me-2">
