@@ -40,26 +40,32 @@ function CountryCard({ country }) {
                 />
               </ListGroupItem>
               <ListGroup.Item>
-                <i className="bi bi-translate me-2">
-                  <span>
-                    {" "}
-                    {language_name} ({language_symbol})
-                  </span>
-                </i>
+                <i
+                  className="bi bi-translate me-2"
+                  style={{ fontSize: "1.5rem", color: "cornflowerblue" }}
+                ></i>
+                <span>
+                  {" "}
+                  {language_name} ({language_symbol})
+                </span>
               </ListGroup.Item>
               <ListGroup.Item>
-                <i className="bi bi-cash-coin me-2">
-                  <span>
-                    {" "}
-                    {currency_name} ({currency_symbol})
-                  </span>
-                </i>
+                <i
+                  className="bi bi-cash-coin me-2"
+                  style={{ fontSize: "1.5rem", color: "cornflowerblue" }}
+                ></i>{" "}
+                <span>
+                  {" "}
+                  {currency_name} ({currency_symbol})
+                </span>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <i className="bi bi-people me-2">
-                  <span> {country.population.toLocaleString()} M</span>
-                </i>
+                <i
+                  className="bi bi-people me-2"
+                  style={{ fontSize: "1.5rem", color: "cornflowerblue" }}
+                ></i>
+                <span> {country.population.toLocaleString()} M</span>
               </ListGroup.Item>
             </ListGroup>
           </Card.Body>
