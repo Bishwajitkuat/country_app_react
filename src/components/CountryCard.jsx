@@ -24,21 +24,27 @@ function CountryCard({ country }) {
       >
         <Card className="h-100">
           <Card.Body className="d-flex flex-column">
+            <img
+              className="mb-4"
+              style={{ width: "100%" }}
+              src={country.flags.png}
+              alt={`flage of ${country.name.common}`}
+            />
             <Card.Title>{country.name.common}</Card.Title>
-            <Card.Subtitle className="mb-5 text-muted">
+            <Card.Subtitle className="mb-1 text-muted">
               {country.name.official}
             </Card.Subtitle>
             <ListGroup
               variant="flush"
               className="flex-grow-1 justify-content-end"
             >
-              <ListGroupItem>
+              {/* <ListGroupItem>
                 <img
                   style={{ width: "5rem" }}
                   src={country.flags.png}
                   alt={`flage of ${country.name.common}`}
                 />
-              </ListGroupItem>
+              </ListGroupItem> */}
               <ListGroup.Item>
                 <i
                   className="bi bi-translate me-2"
