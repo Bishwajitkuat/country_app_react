@@ -20,36 +20,37 @@ function Login() {
     if (loading) return;
     if (user) navigate("/countries");
   }, [user, loading]);
-  return (
-    <div>
+  if (!user)
+    return (
       <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+        </div>
+        <Button onClick={() => loginWithEmailAndPassword(email, password)}>
+          Login
+        </Button>
+        <div>
+          <span>Don't have an account?</span>
+          <Link to="/register">Register</Link>
+        </div>
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-      </div>
-      <Button onClick={() => loginWithEmailAndPassword(email, password)}>
-        Login
-      </Button>
-      <div>
-        <span>Don't have an account?</span>
-        <Link to="/register">Register</Link>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Login;

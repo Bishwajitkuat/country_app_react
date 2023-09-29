@@ -4,11 +4,11 @@ import { LinkContainer } from "react-router-bootstrap";
 function CountryCard({ country }) {
   const currency_name = country?.currencies
     ? Object.values(country.currencies)[0].name
-    : 0;
+    : "not available";
 
   const currency_symbol = country?.currencies
     ? Object.values(country.currencies)[0].symbol
-    : 0;
+    : "not available";
   const language_name = country?.languages
     ? Object.values(country.languages)[0]
     : "not available";
@@ -33,33 +33,33 @@ function CountryCard({ country }) {
               className="flex-grow-1 justify-content-end"
             >
               <ListGroupItem>
-                <img style={{ width: "5rem" }} src={country.flags.png} />
+                <img
+                  style={{ width: "5rem" }}
+                  src={country.flags.png}
+                  alt={`flage of ${country.name.common}`}
+                />
               </ListGroupItem>
               <ListGroup.Item>
                 <i className="bi bi-translate me-2">
-                  {language_name && language_symbol ? (
-                    <span>
-                      {language_name} ({language_symbol})
-                    </span>
-                  ) : (
-                    "not available"
-                  )}
+                  <span>
+                    {" "}
+                    {language_name} ({language_symbol})
+                  </span>
                 </i>
               </ListGroup.Item>
               <ListGroup.Item>
                 <i className="bi bi-cash-coin me-2">
-                  {currency_name && currency_symbol ? (
-                    <span>
-                      {currency_name} ({currency_symbol})
-                    </span>
-                  ) : (
-                    "not available"
-                  )}
+                  <span>
+                    {" "}
+                    {currency_name} ({currency_symbol})
+                  </span>
                 </i>
               </ListGroup.Item>
 
               <ListGroup.Item>
-                <i className="bi bi-people me-2"> {country.population} M</i>
+                <i className="bi bi-people me-2">
+                  <span> {country.population.toLocaleString()} M</span>
+                </i>
               </ListGroup.Item>
             </ListGroup>
           </Card.Body>
