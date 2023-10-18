@@ -9,8 +9,10 @@ import { collection, getDocs } from "firebase/firestore";
 
 export const favouritesSlice = createSlice({
   name: "favourites",
-  initialState: [],
-  isLoading: true,
+  initialState: {
+    favourites: [],
+    isLoading: true,
+  },
   reducers: {
     isLoading(state, action) {
       state.isLoading = action.payload;
@@ -47,6 +49,15 @@ export const favouritesSlice = createSlice({
     },
   },
 });
+
+export const {
+  addFavourite,
+  removeFavourite,
+  clearFavourites,
+  isLoading,
+  getFavourites,
+} = favouritesSlice.actions;
+
 // getting the current favourites from db and set it as favourites states using getFavourites() reducer
 export const getFavouritesFromSource = () => async (dispatch) => {
   const user = auth.currentUser;
@@ -57,12 +68,4 @@ export const getFavouritesFromSource = () => async (dispatch) => {
     dispatch(isLoading(false));
   }
 };
-
-export const {
-  addFavourite,
-  removeFavourite,
-  clearFavourites,
-  isLoading,
-  getFavourites,
-} = favouritesSlice.action;
-export default favouritesSlice.reducers;
+export default favouritesSlice.reducer;
