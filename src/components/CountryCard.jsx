@@ -24,6 +24,8 @@ function CountryCard({ country }) {
 
   const handleFavourite = (e, countryName) => {
     e.preventDefault();
+    // if favourite property does not exist, early return
+    if (country.favourite === undefined) return;
     if (country.favourite) {
       dispatch(removeFavourite(countryName));
     } else dispatch(addFavourite(countryName));
