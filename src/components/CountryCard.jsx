@@ -1,7 +1,13 @@
 import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
+import {
+  addFavourite,
+  removeFavourite,
+} from "../features/countries/favoritesSlice";
 
 function CountryCard({ country }) {
+  const dispatch = useDispatch();
   const currency_name = country?.currencies
     ? Object.values(country.currencies)[0].name
     : "not available";
@@ -15,6 +21,14 @@ function CountryCard({ country }) {
   const language_symbol = country?.languages
     ? Object.keys(country.languages)[0].toUpperCase()
     : "not available";
+
+  const handleFavourite = (e, countryName) => {
+    e.preventDefault();
+    if (country.favourite) {
+      dispatch(removeFavourite(countryName));
+    }
+    dispatch(addFavourite(countryName));
+  };
 
   return (
     <Col className="mt-5">
@@ -45,7 +59,18 @@ function CountryCard({ country }) {
                 />
               </ListGroupItem> */}
               <ListGroup.Item>
-                <i className="bi bi-heart text-danger h1 "></i>
+                <button
+                  onClick={(e) => handleFavourite(e, country.name.common)}
+                  className="btn btn-outline-secondary"
+                >
+                  <i
+                    className={
+                      country.favourite
+                        ? "bi bi-heart-fill text-danger h3"
+                        : "bi bi-heart text-danger h3"
+                    }
+                  ></i>
+                </button>
               </ListGroup.Item>
               <ListGroup.Item>
                 <i
@@ -53,7 +78,6 @@ function CountryCard({ country }) {
                   style={{ fontSize: "1.5rem", color: "cornflowerblue" }}
                 ></i>
                 <span>
-                  {" "}
                   {language_name} ({language_symbol})
                 </span>
               </ListGroup.Item>
