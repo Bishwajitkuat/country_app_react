@@ -26,8 +26,7 @@ function CountryCard({ country }) {
     e.preventDefault();
     if (country.favourite) {
       dispatch(removeFavourite(countryName));
-    }
-    dispatch(addFavourite(countryName));
+    } else dispatch(addFavourite(countryName));
   };
 
   return (
