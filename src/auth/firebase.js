@@ -8,8 +8,15 @@ import {
   signOut,
   getAuth,
 } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  deleteDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -57,6 +64,59 @@ const registerWithAndPassword = async (name, email, password) => {
 
 const logout = () => {
   signOut(auth);
+};
+
+// adding name of the country to the users/uid/favourites table
+export const addFavouriteToFirebase = async (uid, name) => {
+  try {
+    await addDoc(collection(db, `users/${uid}/favourites`), { name });
+    console.log("Favourite added to Firebase database");
+  } catch (err) {
+    console.error("Error adding favourite to Firebase database: ", err);
+  }
+};
+
+// removing favourites from firebase database
+export const removeFavouriteFromFirebase = async (uid, name) => {
+  try {
+    if (!name) {
+      console.error(
+        "Error removing favourite from Firebase database: name parameter is undefined"
+      );
+      return;
+    }
+    // creating a quary to users/uid/favourites table in firestor where parameter name === database name
+    const q = query(
+      collection(db, `users/${uid}/favourites`),
+      where("name", "==", name)
+    );
+    // exicuting the quary and returning matching objects in an array
+    const querySnapshot = await getDocs(q);
+    // going throw each object and deleting each object from db with deleteDoc() method from firestor by passing ref of each object
+    querySnapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+      console.log("Favourite removed from Firebase database");
+    });
+  } catch (err) {
+    console.error("Error removing favourite from Firebase database: ", err);
+  }
+};
+
+// removing all objects from favourites table in firestore
+export const clearFavouritesFromFirebase = async (uid) => {
+  try {
+    // creating a quary to get all objects from favourites table of a particular user
+    const q = query(collection(db, `users/${uid}/favourites`));
+    // getting all objects as an array
+    const querySnapshot = await getDocs(q);
+    // deleting each object by passing ref of each object into deleteDoc() method from firestore
+    querySnapshot.forEach((doc) => {
+      deleteDoc(doc.ref);
+      console.log("Favourites removed from Firebase database");
+    });
+  } catch (err) {
+    console.error("Error removing favourites from Firebase database: ", err);
+  }
 };
 
 export { auth, db, loginWithEmailAndPassword, registerWithAndPassword, logout };
