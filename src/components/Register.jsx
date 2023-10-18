@@ -3,6 +3,7 @@ import { auth, registerWithAndPassword } from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import Loader from "./Loader";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -16,46 +17,47 @@ function Register() {
     registerWithAndPassword(name, email, password);
   };
   useEffect(() => {
-    if (loading) return;
     if (user) navigate("/countries");
   }, [user, loading]);
 
-  return (
-    <div>
+  if (loading) return <Loader />;
+  if (!user)
+    return (
       <div>
-        <label htmlFor="name">Name: </label>
+        <div>
+          <label htmlFor="name">Name: </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Full Name"
+          />
+        </div>
+        <div>
+          <label htmlFor="email"></label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+          />
+        </div>
         <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full Name"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
         />
+        {/* can add confirm password */}
+        <Button onClick={register}>Register</Button>
+        <div>
+          <span>Already have a account!</span>
+          <Link to="/login">Login</Link>
+        </div>
       </div>
-      <div>
-        <label htmlFor="email"></label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-      </div>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      {/* can add confirm password */}
-      <Button onClick={register}>Register</Button>
-      <div>
-        <span>Already have a account!</span>
-        <Link to="/login">Login</Link>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Register;
