@@ -71,16 +71,13 @@ const Favourites = () => {
         </Button>
       </Row>
       <Row xs={2} md={3} lg={4} className=" g-3">
-        {countriesList.length &&
-          countriesList
-            .filter((c) => {
-              return c.name.official
-                .toLowerCase()
-                .includes(search.toLowerCase());
-            })
-            .map((country) => (
-              <CountryCard key={country.name.common} country={country} />
-            ))}
+        {countriesList
+          .filter((c) => {
+            return c.name.official.toLowerCase().includes(search.toLowerCase());
+          })
+          .map((country) => (
+            <CountryCard key={country.name.common} country={country} />
+          ))}
       </Row>
     </Container>
   );
