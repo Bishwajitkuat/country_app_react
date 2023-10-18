@@ -10,21 +10,30 @@ import { LinkContainer } from "react-router-bootstrap";
 import CountryCard from "./CountryCard";
 import { initializedCountries } from "../features/countries/countriesSlice";
 import { Spinner } from "react-bootstrap";
+import { getFavouritesFromSource } from "../features/countries/favoritesSlice";
 
 const Countries = () => {
   const dispatch = useDispatch();
   const countriesList = useSelector((state) => state.countries.countries);
+  const favouritesList = useSelector((state) => state.favourites.favourites);
   const loading = useSelector((state) => state.countries.isLoading);
 
+  // adding favourite propety to each country object, value would be true if it exists in favouritesList
+  const countriesWithFavourite = countriesList.map((country) => {
+    if (favouritesList.some((item) => item === country.name.common)) {
+      return { ...country, favourite: true };
+    } else return { ...country, favourite: false };
+  });
   const [search, setSearch] = useState("");
   // filter the country list based on search state change
   const filterCountryList = search
-    ? countriesList.filter((item) =>
+    ? countriesWithFavourite.filter((item) =>
         item.name.common.toLowerCase().includes(search.toLowerCase())
       )
-    : countriesList;
+    : countriesWithFavourite;
   useEffect(() => {
     dispatch(initializedCountries());
+    dispatch(getFavouritesFromSource());
   }, [dispatch]);
 
   if (loading) {
