@@ -25,8 +25,7 @@ function CountryCard({ country }) {
         <Card className="h-100">
           <Card.Body className="d-flex flex-column">
             <img
-              className="mb-4"
-              style={{ width: "100%" }}
+              className="mb-4 img-fluid"
               src={country.flags.png}
               alt={`flage of ${country.name.common}`}
             />
@@ -45,6 +44,9 @@ function CountryCard({ country }) {
                   alt={`flage of ${country.name.common}`}
                 />
               </ListGroupItem> */}
+              <ListGroup.Item>
+                <i className="bi bi-heart text-danger h1 "></i>
+              </ListGroup.Item>
               <ListGroup.Item>
                 <i
                   className="bi bi-translate me-2"
