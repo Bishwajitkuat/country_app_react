@@ -18,9 +18,13 @@ const Favourites = () => {
   const [search, setSearch] = useState("");
 
   if (favouritesList?.length > 0) {
-    countriesList = countriesList.filter((c) =>
-      favouritesList.includes(c.name.common)
-    );
+    // filtering the favourites from countryList adding "favourite: true" property to each object
+    countriesList = countriesList.reduce((acc, country) => {
+      if (favouritesList.includes(country.name.common)) {
+        return [...acc, { ...country, favourite: true }];
+      }
+      return acc;
+    }, []);
   } else {
     countriesList = [];
   }
