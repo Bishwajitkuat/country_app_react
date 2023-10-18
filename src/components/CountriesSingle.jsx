@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addFavourite } from "../features/countries/favoritesSlice";
 
 const CountriesSingle = () => {
   const location = useLocation();
@@ -10,6 +12,7 @@ const CountriesSingle = () => {
   const country = location.state.country;
   const [errors, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
   useEffect(() => {
     async function featchData() {
       try {
@@ -47,13 +50,18 @@ const CountriesSingle = () => {
     <Container>
       <Row className="mt-5">
         <Col>
-          <Image
-            thumbnail
-            src={`https://source.unsplash.com/1600x900/?${country.capital}`}
-          />
           <img style={{ width: "5rem" }} src={country.flags.png} />
           <h2 className="display-4">{country.name.common}</h2>
           <h3>{country.capital}</h3>
+          <button
+            onClick={() => dispatch(addFavourite(country.name.common))}
+            className="btn btn-outline-secondary"
+          >
+            <i className="bi bi-heart-fill text-danger "></i>
+            <span> Add to favourite</span>
+          </button>
+        </Col>
+        <Col>
           {errors && (
             <p>Sorry, we don't have weather information for this country</p>
           )}
@@ -70,6 +78,14 @@ const CountriesSingle = () => {
               />
             </div>
           )}
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Image
+            thumbnail
+            src={`https://source.unsplash.com/1600x900/?${country.capital}`}
+          />
         </Col>
       </Row>
       <Row>
