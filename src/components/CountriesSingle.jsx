@@ -3,13 +3,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addFavourite } from "../features/countries/favoritesSlice";
+import {
+  addFavourite,
+  getFavouritesFromSource,
+  removeFavourite,
+} from "../features/countries/favoritesSlice";
 
 const CountriesSingle = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [weather, setWather] = useState("");
-  const country = location.state.country;
+  // this component does not get info from store, so I need to manage its localy for conditional css and function of add/remove button
+  const [country, setCountry] = useState(location.state.country);
   const [errors, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -29,8 +34,20 @@ const CountriesSingle = () => {
       }
     }
     featchData();
-  }, [country.capital]);
-  console.log("country.flags :", country.flags);
+  }, [country.capital, dispatch]);
+
+  const handleFavourite = (name) => {
+    if (country.favourite) {
+      //this update the favourite data in db, so other part will have access to updated data
+      dispatch(removeFavourite(name));
+      // as this component does not get data directly from store, local state manage necessary for  conditional add/remove handling
+      setCountry({ ...country, favourite: false });
+    } else {
+      dispatch(addFavourite(name));
+      setCountry({ ...country, favourite: true });
+    }
+  };
+
   if (loading) {
     return (
       <Container>
@@ -54,11 +71,20 @@ const CountriesSingle = () => {
           <h2 className="display-4">{country.name.common}</h2>
           <h3>{country.capital}</h3>
           <button
-            onClick={() => dispatch(addFavourite(country.name.common))}
+            onClick={() => handleFavourite(country.name.common)}
             className="btn btn-outline-secondary"
           >
-            <i className="bi bi-heart-fill text-danger "></i>
-            <span> Add to favourite</span>
+            <i
+              className={
+                country.favourite
+                  ? "bi bi-heart-fill text-danger"
+                  : "bi bi-heart text-danger"
+              }
+            ></i>
+            <span>
+              {" "}
+              {country.favourite ? "Remove from favourite" : "Add to favourite"}
+            </span>
           </button>
         </Col>
         <Col>
