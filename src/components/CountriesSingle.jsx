@@ -65,54 +65,73 @@ const CountriesSingle = () => {
   }
 
   return (
-    <Container>
-      <Row className="mt-5">
-        <Col>
-          <img style={{ width: "5rem" }} src={country.flags.png} />
-          <h2 className="display-4">{country.name.common}</h2>
-          <h3>{country.capital}</h3>
-          <button
-            onClick={() => handleFavourite(country.name.common)}
-            className="btn btn-outline-secondary"
-          >
-            <i
-              className={
-                country.favourite
-                  ? "bi bi-heart-fill text-danger"
-                  : "bi bi-heart text-danger"
-              }
-            ></i>
-            <span>
-              {" "}
-              {country.favourite ? "Remove from favourite" : "Add to favourite"}
-            </span>
-          </button>
-        </Col>
-        <Col>
+    <div className="container container-xxl p-3 pt-0">
+      <div className="row justify-content-center mt-5">
+        <div className="col col-md-6 p-3">
+          <div className="row">
+            <div className="col-12 col-md-6">
+              <img
+                className="img m-1 img-fluid"
+                src={country.flags.png}
+                alt="country flag"
+              />
+            </div>
+            <div className="col-12 col-md-6">
+              <button
+                style={{ maxWidth: "11rem", minHeight: "3rem" }}
+                onClick={() => handleFavourite(country.name.common)}
+                className="btn btn-outline-secondary m-1"
+              >
+                <i
+                  className={
+                    country.favourite
+                      ? "bi bi-heart-fill text-danger"
+                      : "bi bi-heart text-danger"
+                  }
+                ></i>
+                <span>
+                  {country.favourite
+                    ? "Remove from favourite"
+                    : "Add to favourite"}
+                </span>
+              </button>
+              <button
+                style={{ maxWidth: "11rem", minHeight: "3rem" }}
+                className="btn btn-outline-primary m-1"
+                onClick={() => navigate("/countries")}
+              >
+                Back to Countries
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 p-3">
           <WeatherCard
             weather={weather}
             loading={loading}
             errors={errors}
             capital={country.capital}
           />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-6 p-3">
+          <h2 className="display-4">{country.name.common}</h2>
+          <h3>{country.capital}</h3>
+        </div>
+        <div className="col-12 col-md-6 p-3">
           <Image
+            className="img img-fluid"
             thumbnail
             src={`https://source.unsplash.com/1600x900/?${country.capital}`}
           />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button variant="light" onClick={() => navigate("/countries")}>
-            Back to Countries
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+      <div className="row"></div>
+      <div className="row">
+        <Col></Col>
+      </div>
+    </div>
   );
 };
 
