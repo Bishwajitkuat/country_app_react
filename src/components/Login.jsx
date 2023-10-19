@@ -61,9 +61,12 @@ function Login() {
             </div>
           </div>
           <div className="text-center mt-4">
-            <Button onClick={() => loginWithEmailAndPassword(email, password)}>
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => loginWithEmailAndPassword(email, password)}
+            >
               Login
-            </Button>
+            </button>
           </div>
           <div className="text-center mt-3">
             <span>Don't have an account? </span>
