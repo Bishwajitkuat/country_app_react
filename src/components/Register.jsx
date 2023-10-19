@@ -8,13 +8,17 @@ import Loader from "./Loader";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
   const register = () => {
     if (!name) alert("Please enter name");
-    registerWithAndPassword(name, email, password);
+    else if (password === "") alert("Please enter password");
+    else if (password !== confirmPassword)
+      alert("Password did not match in confirm password");
+    else registerWithAndPassword(name, email, password);
   };
   useEffect(() => {
     if (user) navigate("/countries");
@@ -23,38 +27,93 @@ function Register() {
   if (loading) return <Loader />;
   if (!user)
     return (
-      <div>
-        <div>
-          <label htmlFor="name">Name: </label>
-          <input
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-          />
-        </div>
-        <div>
-          <label htmlFor="email"></label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-        </div>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        {/* can add confirm password */}
-        <Button onClick={register}>Register</Button>
-        <div>
-          <span>Already have a account!</span>
-          <Link to="/login">Login</Link>
+      <div className="row justify-content-center">
+        <div className="col col-md-4">
+          <div className="mt-3">
+            <label className="form-label fw-bold text-muted" htmlFor="name">
+              Name
+            </label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i class="bi bi-person-fill text-primary"></i>
+              </span>
+              <input
+                className="form-control"
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Full Name"
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label className="form-label  fw-bold text-muted" htmlFor="email">
+              Email
+            </label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i class="bi bi-envelope text-primary"></i>
+              </span>
+              <input
+                className="form-control"
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label htmlFor="password" className="form-label fw-bold text-muted">
+              Password
+            </label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i class="bi bi-lock-fill text-primary"></i>
+              </span>
+              <input
+                className="form-control"
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label
+              htmlFor="confirmPassword"
+              className="form-label fw-bold text-muted"
+            >
+              Password
+            </label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i class="bi bi-lock-fill text-primary"></i>
+              </span>
+              <input
+                className="form-control"
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm Password"
+              />
+            </div>
+          </div>
+          {/* can add confirm password */}
+          <div className="text-center mt-5">
+            <button className="btn btn-outline-primary" onClick={register}>
+              Register
+            </button>
+          </div>
+          <div className="text-center mt-3">
+            <span>Already have a account! </span>
+            <Link to="/login">Login</Link>
+          </div>
         </div>
       </div>
     );
