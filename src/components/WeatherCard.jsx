@@ -1,5 +1,4 @@
 function WeatherCard({ weather, loading, errors, capital }) {
-  console.log(weather);
   return (
     <div className="container">
       <div className="row justify-content-start">

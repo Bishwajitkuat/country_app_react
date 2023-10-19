@@ -5,10 +5,10 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import {
   addFavourite,
-  getFavouritesFromSource,
   removeFavourite,
 } from "../features/countries/favoritesSlice";
 import WeatherCard from "./WeatherCard";
+import Map from "./Map";
 
 const CountriesSingle = () => {
   const location = useLocation();
@@ -80,7 +80,7 @@ const CountriesSingle = () => {
               <button
                 style={{ maxWidth: "11rem", minHeight: "3rem" }}
                 onClick={() => handleFavourite(country.name.common)}
-                className="btn btn-outline-secondary m-1"
+                className="btn btn-outline-primary m-1"
               >
                 <i
                   className={
@@ -90,9 +90,7 @@ const CountriesSingle = () => {
                   }
                 ></i>
                 <span>
-                  {country.favourite
-                    ? "Remove from favourite"
-                    : "Add to favourite"}
+                  {country.favourite ? " Remove favourite" : " Add favourite"}
                 </span>
               </button>
               <button
@@ -127,10 +125,10 @@ const CountriesSingle = () => {
           />
         </div>
       </div>
-      <div className="row"></div>
-      <div className="row">
-        <Col></Col>
+      <div style={{ minHeight: "400px" }} className="row">
+        <Map lati={country.latlng[0]} lngi={country.latlng[1]} />
       </div>
+      <div className="row"></div>
     </div>
   );
 };
