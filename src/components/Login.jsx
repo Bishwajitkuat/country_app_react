@@ -22,32 +22,58 @@ function Login() {
   }, [user, loading]);
   if (!user)
     return (
-      <div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-        </div>
-        <Button onClick={() => loginWithEmailAndPassword(email, password)}>
-          Login
-        </Button>
-        <div>
-          <span>Don't have an account?</span>
-          <Link to="/register">Register</Link>
+      <div className="row justify-content-center  p-5">
+        <div className="col col-md-4">
+          <div>
+            <label className="form-label fw-bold text-muted" htmlFor="email">
+              Email
+            </label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i class="bi bi-envelope text-primary"></i>
+              </span>
+              <input
+                id="email"
+                className="form-control"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <label className="form-label fw-bold text-muted" htmlFor="password">
+              Password
+            </label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <i class="bi bi-lock-fill text-primary"></i>
+              </span>
+              <input
+                className="form-control"
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+            </div>
+          </div>
+          <div className="text-center mt-4">
+            <Button onClick={() => loginWithEmailAndPassword(email, password)}>
+              Login
+            </Button>
+          </div>
+          <div className="text-center mt-3">
+            <span>Don't have an account? </span>
+            <Link to="/register">Register</Link>
+          </div>
+          <div className="mt-3 rounded border border-muted p-2">
+            <p>You can loging with the following credentials to try it!</p>
+            <p>Email: try@try.com</p>
+            <p>Password: 123456</p>
+          </div>
         </div>
       </div>
     );
