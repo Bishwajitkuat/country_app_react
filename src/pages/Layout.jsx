@@ -12,7 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const Layout = () => {
   const [user] = useAuthState(auth);
   return (
-    <Container fluid>
+    <Container>
       <Row>
         <Navbar bg="light" variant="light">
           <Container className="justify-content-end">
