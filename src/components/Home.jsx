@@ -4,13 +4,15 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const Home = () => {
   return (
-    <div className="row justify-content-center align-items-center pt-5">
+    <div className="row justify-content-center align-items-center pt-5 m-0">
       <div className="col-12 col-md-6">
-        <h1 className="display-1 fw-bold">Welcome to Country App</h1>
-        <p className="display-5 fst-italic">
+        <h1 className="display-1 fw-bold text-white">Welcome to Country App</h1>
+        <p className="display-5 fst-italic text-primary">
           "Learn about different countires"
         </p>
-        <p className="display-5 fst-italic">"Mark you favourite countries"</p>
+        <p className="display-5 fst-italic text-primary">
+          "Mark you favourite countries"
+        </p>
       </div>
       <div className="col-12 col-md-6">
         <img

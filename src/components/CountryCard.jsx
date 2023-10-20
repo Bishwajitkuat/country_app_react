@@ -5,6 +5,7 @@ import {
   addFavourite,
   removeFavourite,
 } from "../features/countries/favoritesSlice";
+import { Link } from "react-router-dom";
 
 function CountryCard({ country }) {
   const dispatch = useDispatch();
@@ -33,7 +34,8 @@ function CountryCard({ country }) {
 
   return (
     <Col className="mt-5">
-      <LinkContainer
+      <Link
+        className="text-decoration-none"
         to={`/countries/${country.name.common}`}
         state={{ country: country }}
       >
@@ -103,7 +105,7 @@ function CountryCard({ country }) {
             </ListGroup>
           </Card.Body>
         </Card>
-      </LinkContainer>
+      </Link>
     </Col>
   );
 }

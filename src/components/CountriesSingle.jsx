@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,7 +75,7 @@ const CountriesSingle = () => {
   }
 
   return (
-    <div className="container container-xxl p-3 pt-0">
+    <div className="container container-xxl p-3 pt-0 text-white">
       <div className="row justify-content-center mt-5">
         <div className="col col-md-6 p-3">
           <div className="row">
@@ -143,17 +143,18 @@ const CountriesSingle = () => {
               {country.borders.map((c) => {
                 const NeighbourCountry = getNeighbourDetail(c);
                 return (
-                  <div className="col" key={c}>
-                    <LinkContainer
+                  <div className="col-3" key={c}>
+                    <Link
+                      className="text-decoration-none"
                       to={`/countries/${NeighbourCountry.name.common}`}
                       state={{ country: NeighbourCountry }}
                     >
                       <img
-                        className="img m-1 rounded img-fluid"
+                        className="img m-1  img-fluid"
                         src={NeighbourCountry.flags.png}
                         alt="country flag"
                       />
-                    </LinkContainer>
+                    </Link>
                   </div>
                 );
               })}

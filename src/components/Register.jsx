@@ -28,9 +28,9 @@ function Register() {
   if (!user)
     return (
       <div className="row justify-content-center">
-        <div className="col col-md-4">
+        <div className="col col-md-6">
           <div className="mt-3">
-            <label className="form-label fw-bold text-muted" htmlFor="name">
+            <label className="form-label fw-bold text-white" htmlFor="name">
               Name
             </label>
             <div className="input-group">
@@ -48,7 +48,7 @@ function Register() {
             </div>
           </div>
           <div className="mt-3">
-            <label className="form-label  fw-bold text-muted" htmlFor="email">
+            <label className="form-label  fw-bold text-white" htmlFor="email">
               Email
             </label>
             <div className="input-group">
@@ -66,7 +66,7 @@ function Register() {
             </div>
           </div>
           <div className="mt-3">
-            <label htmlFor="password" className="form-label fw-bold text-muted">
+            <label htmlFor="password" className="form-label fw-bold text-white">
               Password
             </label>
             <div className="input-group">
@@ -86,7 +86,7 @@ function Register() {
           <div className="mt-3">
             <label
               htmlFor="confirmPassword"
-              className="form-label fw-bold text-muted"
+              className="form-label fw-bold text-white"
             >
               Password
             </label>
@@ -104,13 +104,13 @@ function Register() {
               />
             </div>
           </div>
-          {/* can add confirm password */}
+
           <div className="text-center mt-5">
             <button className="btn btn-outline-primary" onClick={register}>
               Register
             </button>
           </div>
-          <div className="text-center mt-3">
+          <div className="text-center mt-3 text-white">
             <span>Already have a account! </span>
             <Link to="/login">Login</Link>
           </div>

@@ -23,9 +23,9 @@ function Login() {
   if (!user)
     return (
       <div className="row justify-content-center  p-5">
-        <div className="col col-md-4">
+        <div className="col col-md-6">
           <div>
-            <label className="form-label fw-bold text-muted" htmlFor="email">
+            <label className="form-label fw-bold text-white" htmlFor="email">
               Email
             </label>
             <div className="input-group">
@@ -43,7 +43,7 @@ function Login() {
             </div>
           </div>
           <div className="mt-3">
-            <label className="form-label fw-bold text-muted" htmlFor="password">
+            <label className="form-label fw-bold text-white" htmlFor="password">
               Password
             </label>
             <div className="input-group">
@@ -68,11 +68,11 @@ function Login() {
               Login
             </button>
           </div>
-          <div className="text-center mt-3">
+          <div className="text-center mt-3 text-white">
             <span>Don't have an account? </span>
             <Link to="/register">Register</Link>
           </div>
-          <div className="mt-3 rounded border border-muted p-2">
+          <div className="mt-3 rounded border border-muted p-3 text-white">
             <p>You can loging with the following credentials to try it!</p>
             <p>Email: try@try.com</p>
             <p>Password: 123456</p>
