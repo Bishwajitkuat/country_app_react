@@ -13,8 +13,11 @@ import Map from "./Map";
 
 import { initializedCountries } from "../features/countries/countriesSlice";
 import Loader from "./Loader";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../auth/firebase";
 
 const CountriesSingle = () => {
+  const [user] = useAuthState(auth);
   const location = useLocation();
   const navigate = useNavigate();
   const countriesList = useSelector((state) => state.countries.countries);
@@ -49,6 +52,10 @@ const CountriesSingle = () => {
   }, [country.capital, dispatch]);
 
   const handleFavourite = (name) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     if (country.favourite) {
       dispatch(removeFavourite(name));
     } else {

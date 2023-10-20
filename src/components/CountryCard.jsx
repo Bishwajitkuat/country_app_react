@@ -4,9 +4,13 @@ import {
   addFavourite,
   removeFavourite,
 } from "../features/countries/favoritesSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../auth/firebase";
 
 function CountryCard({ country }) {
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const currency_name = country?.currencies
     ? Object.values(country.currencies)[0].name
@@ -24,6 +28,10 @@ function CountryCard({ country }) {
 
   const handleFavourite = (e, countryName) => {
     e.preventDefault();
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     // if favourite property does not exist, early return
     if (country.favourite === undefined) return;
     if (country.favourite) {

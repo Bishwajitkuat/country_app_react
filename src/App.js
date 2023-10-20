@@ -24,10 +24,10 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/loader" element={<Loader />} />
+          <Route path="/countries" element={<Countries />} />
+          <Route path="/countries/:single" element={<CountriesSingle />} />
           <Route element={<ProtectedRoute user={user} />}>
             <Route path="/favourites" element={<Favourites />} />
-            <Route path="/countries" element={<Countries />} />
-            <Route path="/countries/:single" element={<CountriesSingle />} />
           </Route>
         </Route>
       </Routes>
