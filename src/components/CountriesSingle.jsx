@@ -2,20 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourite,
+  getFavouritesFromSource,
   removeFavourite,
 } from "../features/countries/favoritesSlice";
 import WeatherCard from "./WeatherCard";
 import Map from "./Map";
+import { LinkContainer } from "react-router-bootstrap";
+import { initializedCountries } from "../features/countries/countriesSlice";
 
 const CountriesSingle = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const countriesList = useSelector((state) => state.countries.countries);
+  const favouritesList = useSelector((state) => state.favourites.favourites);
   const [weather, setWather] = useState("");
-  // this component does not get info from store, so I need to manage its localy for conditional css and function of add/remove button
-  const [country, setCountry] = useState(location.state.country);
+  const countryFromLink = location.state.country;
+  // after receiving the data from link, checking it againest favoritesList, if it exists in favouritesList adding favourites: true else flase
+  const country = favouritesList.includes(countryFromLink.name.common)
+    ? { ...countryFromLink, favourite: true }
+    : { ...countryFromLink, favourite: false };
   const [errors, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -35,18 +43,20 @@ const CountriesSingle = () => {
       }
     }
     featchData();
+    dispatch(initializedCountries());
+    dispatch(getFavouritesFromSource());
   }, [country.capital, dispatch]);
 
   const handleFavourite = (name) => {
     if (country.favourite) {
-      //this update the favourite data in db, so other part will have access to updated data
       dispatch(removeFavourite(name));
-      // as this component does not get data directly from store, local state manage necessary for  conditional add/remove handling
-      setCountry({ ...country, favourite: false });
     } else {
       dispatch(addFavourite(name));
-      setCountry({ ...country, favourite: true });
     }
+  };
+
+  const getNeighbourDetail = (c) => {
+    return countriesList.filter((country) => country.cca3 === c)[0];
   };
 
   if (loading) {
@@ -71,16 +81,18 @@ const CountriesSingle = () => {
           <div className="row">
             <div className="col-12 col-md-6">
               <img
-                className="img m-1 img-fluid"
+                className="img img-fluid"
                 src={country.flags.png}
                 alt="country flag"
               />
             </div>
-            <div className="col-12 col-md-6">
+            <div className="col-12 col-md-6 row m-0">
               <button
-                style={{ maxWidth: "11rem", minHeight: "3rem" }}
+                style={{
+                  minHeight: "4rem",
+                }}
                 onClick={() => handleFavourite(country.name.common)}
-                className="btn btn-outline-primary m-1"
+                className="col-5 col-md-12 btn btn-outline-primary my-1 me-2"
               >
                 <i
                   className={
@@ -94,8 +106,10 @@ const CountriesSingle = () => {
                 </span>
               </button>
               <button
-                style={{ maxWidth: "11rem", minHeight: "3rem" }}
-                className="btn btn-outline-primary m-1"
+                style={{
+                  minHeight: "4rem",
+                }}
+                className="col-5 col-md-12 btn btn-outline-primary my-1"
                 onClick={() => navigate("/countries")}
               >
                 Back to Countries
@@ -114,8 +128,37 @@ const CountriesSingle = () => {
       </div>
       <div className="row">
         <div className="col-12 col-md-6 p-3">
-          <h2 className="display-4">{country.name.common}</h2>
-          <h3>{country.capital}</h3>
+          <h2 className="display-4 fw-bold">{country.name.common}</h2>
+          <div>
+            <i class="bi bi-bank h4 text-primary me-3"></i>
+            <span className="h4">{country.capital}</span>
+          </div>
+          <div className="py-3">
+            <i class="bi bi-compass h4 text-primary me-3"></i>
+            <span className="h4">{country.continents.join(", ")}</span>
+          </div>
+          <div className="row justify-content-start align-items-center">
+            <h3 className="col-auto h4">Neibours: </h3>
+            <div className="col-6 row">
+              {country.borders.map((c) => {
+                const NeighbourCountry = getNeighbourDetail(c);
+                return (
+                  <div className="col" key={c}>
+                    <LinkContainer
+                      to={`/countries/${NeighbourCountry.name.common}`}
+                      state={{ country: NeighbourCountry }}
+                    >
+                      <img
+                        className="img m-1 rounded img-fluid"
+                        src={NeighbourCountry.flags.png}
+                        alt="country flag"
+                      />
+                    </LinkContainer>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
         <div className="col-12 col-md-6 p-3">
           <Image
@@ -125,7 +168,7 @@ const CountriesSingle = () => {
           />
         </div>
       </div>
-      <div style={{ minHeight: "400px" }} className="row">
+      <div style={{ minHeight: "350px" }} className="row p-3">
         <Map lati={country.latlng[0]} lngi={country.latlng[1]} />
       </div>
       <div className="row"></div>
