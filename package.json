@@ -1,5 +1,5 @@
 {
-  "name": "countries-bootstrap",
+  "name": "country-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
