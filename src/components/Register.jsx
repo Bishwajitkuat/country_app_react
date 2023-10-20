@@ -34,7 +34,7 @@ function Register() {
             </label>
             <div className="input-group">
               <span className="input-group-text">
-                <i class="bi bi-person-fill text-primary"></i>
+                <i className="bi bi-person-fill text-primary"></i>
               </span>
               <input
                 className="form-control"
@@ -52,7 +52,7 @@ function Register() {
             </label>
             <div className="input-group">
               <span className="input-group-text">
-                <i class="bi bi-envelope text-primary"></i>
+                <i className="bi bi-envelope text-primary"></i>
               </span>
               <input
                 className="form-control"
@@ -70,7 +70,7 @@ function Register() {
             </label>
             <div className="input-group">
               <span className="input-group-text">
-                <i class="bi bi-lock-fill text-primary"></i>
+                <i className="bi bi-lock-fill text-primary"></i>
               </span>
               <input
                 className="form-control"
@@ -91,7 +91,7 @@ function Register() {
             </label>
             <div className="input-group">
               <span className="input-group-text">
-                <i class="bi bi-lock-fill text-primary"></i>
+                <i className="bi bi-lock-fill text-primary"></i>
               </span>
               <input
                 className="form-control"

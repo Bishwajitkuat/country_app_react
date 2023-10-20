@@ -130,11 +130,11 @@ const CountriesSingle = () => {
         <div className="col-12 col-md-6 p-3">
           <h2 className="display-4 fw-bold">{country.name.common}</h2>
           <div>
-            <i class="bi bi-bank h4 text-primary me-3"></i>
+            <i className="bi bi-bank h4 text-primary me-3"></i>
             <span className="h4">{country.capital}</span>
           </div>
           <div className="py-3">
-            <i class="bi bi-compass h4 text-primary me-3"></i>
+            <i className="bi bi-compass h4 text-primary me-3"></i>
             <span className="h4">{country.continents.join(", ")}</span>
           </div>
           <div className="row justify-content-start align-items-center">
