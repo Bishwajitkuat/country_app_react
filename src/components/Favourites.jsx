@@ -55,8 +55,9 @@ const Favourites = () => {
           </Form>
         </Col>
       </Row>
-      <Row xs={2} md={3} lg={4} className=" g-3">
+      <Row className="justify-content-center">
         <Button
+          className="col-2 m-3"
           onClick={() => {
             dispatch(clearFavourites());
           }}
@@ -64,7 +65,7 @@ const Favourites = () => {
           Clear Favourites
         </Button>
       </Row>
-      <Row xs={2} md={3} lg={4} className=" g-3">
+      <Row xs={2} md={3} lg={4} className="justify-content-center  g-3">
         {countriesList
           .filter((c) => {
             return c.name.official.toLowerCase().includes(search.toLowerCase());
