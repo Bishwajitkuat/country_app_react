@@ -19,6 +19,13 @@ const Home = () => {
           src="./hero.jpg"
           alt=""
         />
+        <div className="py-3 text-center">
+          <LinkContainer to="/countries">
+            <button className="btn btn-outline-primary px-5 py-3 fw-bold">
+              Countries
+            </button>
+          </LinkContainer>
+        </div>
         <div className="py-5 text-center">
           <LinkContainer to="/login">
             <button className="btn btn-outline-primary me-5">Login</button>
@@ -28,13 +35,6 @@ const Home = () => {
           </LinkContainer>
         </div>
       </div>
-
-      {/* <div>
-        <span>Countries app </span>is a simple React application made in
-        Business College Helsinki lessons. App uses{" "}
-        <a href="https://restcountries.com/">https://restcountries.com/ </a> and{" "}
-        <a href="https://openweathermap.org/">https://openweathermap.org/</a>
-      </div> */}
     </div>
   );
 };
