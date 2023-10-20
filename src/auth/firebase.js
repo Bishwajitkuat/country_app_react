@@ -29,7 +29,6 @@ const firebaseConfig = {
   storageBucket: `${process.env.REACT_APP_FIRE_STORE_STORE_BUCKET}`,
   messagingSenderId: `${process.env.REACT_APP_FIRE_STORE_MESSAGING_SENDER_ID}`,
   appId: `${process.env.REACT_APP_FIRE_STORE_APP_ID}`,
-  measurementId: `${process.env.REACT_APP_FIRE_STORE_MEASUREMENT_ID}`,
 };
 
 // Initialize Firebase
@@ -70,7 +69,6 @@ const logout = () => {
 export const addFavouriteToFirebase = async (uid, name) => {
   try {
     await addDoc(collection(db, `users/${uid}/favourites`), { name });
-    alert("Favourite added to Firebase database");
   } catch (err) {
     alert("Error adding favourite to Firebase database: ", err);
   }
@@ -95,7 +93,6 @@ export const removeFavouriteFromFirebase = async (uid, name) => {
     // going throw each object and deleting each object from db with deleteDoc() method from firestor by passing ref of each object
     querySnapshot.forEach((doc) => {
       deleteDoc(doc.ref);
-      alert("Favourite removed from Firebase database");
     });
   } catch (err) {
     alert("Error removing favourite from Firebase database: ", err);
@@ -112,7 +109,6 @@ export const clearFavouritesFromFirebase = async (uid) => {
     // deleting each object by passing ref of each object into deleteDoc() method from firestore
     querySnapshot.forEach((doc) => {
       deleteDoc(doc.ref);
-      alert("Favourites removed from Firebase database");
     });
   } catch (err) {
     alert("Error removing favourites from Firebase database: ", err);
