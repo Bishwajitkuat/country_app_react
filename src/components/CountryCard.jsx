@@ -1,6 +1,5 @@
-import { Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
+import { Card, Col, ListGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
 import {
   addFavourite,
   removeFavourite,
@@ -54,13 +53,6 @@ function CountryCard({ country }) {
               variant="flush"
               className="flex-grow-1 justify-content-end"
             >
-              {/* <ListGroupItem>
-                <img
-                  style={{ width: "5rem" }}
-                  src={country.flags.png}
-                  alt={`flage of ${country.name.common}`}
-                />
-              </ListGroupItem> */}
               <ListGroup.Item>
                 <button
                   onClick={(e) => handleFavourite(e, country.name.common)}

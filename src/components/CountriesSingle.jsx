@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button, Col, Container, Image, Row, Spinner } from "react-bootstrap";
+import { Container, Image, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,7 +10,7 @@ import {
 } from "../features/countries/favoritesSlice";
 import WeatherCard from "./WeatherCard";
 import Map from "./Map";
-import { LinkContainer } from "react-router-bootstrap";
+
 import { initializedCountries } from "../features/countries/countriesSlice";
 
 const CountriesSingle = () => {

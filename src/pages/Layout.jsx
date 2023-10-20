@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import { LinkContainer } from "react-router-bootstrap";
-import { Button } from "react-bootstrap";
 import { auth, logout } from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { auth, registerWithAndPassword } from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import Loader from "./Loader";
 
 function Register() {
