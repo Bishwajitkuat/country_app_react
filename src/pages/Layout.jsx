@@ -14,8 +14,8 @@ const Layout = () => {
   return (
     <Container>
       <Row>
-        <Navbar bg="light" variant="light">
-          <Container className="justify-content-end">
+        <Navbar expand="lg" bg="light" variant="light">
+          <Container className="justify-content-bwtween">
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav>
@@ -37,14 +37,14 @@ const Layout = () => {
               </Nav>
             </Navbar.Collapse>
             {user && (
-              <Button variant="primary" onClick={logout}>
+              <button className="btn btn-outline-primary" onClick={logout}>
                 Logout
-              </Button>
+              </button>
             )}
             {!user && (
               <LinkContainer to="/login">
                 <Nav.Link>
-                  <Button variant="primary">Login</Button>
+                  <button className="btn btn-outline-primary">Login</button>
                 </Nav.Link>
               </LinkContainer>
             )}
