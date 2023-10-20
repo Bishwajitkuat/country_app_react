@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Container, Image, Spinner } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,6 +12,7 @@ import WeatherCard from "./WeatherCard";
 import Map from "./Map";
 
 import { initializedCountries } from "../features/countries/countriesSlice";
+import Loader from "./Loader";
 
 const CountriesSingle = () => {
   const location = useLocation();
@@ -59,20 +60,7 @@ const CountriesSingle = () => {
     return countriesList.filter((country) => country.cca3 === c)[0];
   };
 
-  if (loading) {
-    return (
-      <Container>
-        <Spinner
-          animation="border"
-          role="status"
-          className="center"
-          varient="info"
-        >
-          <span className="visually-hidden">Loading......</span>
-        </Spinner>
-      </Container>
-    );
-  }
+  if (loading) return <Loader />;
 
   return (
     <div className="container container-xxl p-3 pt-0 text-white">

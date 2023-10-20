@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { initializedCountries } from "../features/countries/countriesSlice";
 import CountryCard from "./CountryCard";
@@ -7,6 +7,7 @@ import {
   getFavouritesFromSource,
   clearFavourites,
 } from "../features/countries/favoritesSlice";
+import Loader from "./Loader";
 
 const Favourites = () => {
   const dispatch = useDispatch();
@@ -35,18 +36,7 @@ const Favourites = () => {
   }, [dispatch]);
 
   if (loadingCountry || loadingFavourites) {
-    return (
-      <Col className="text-center m-5">
-        <Spinner
-          animation="border"
-          role="status"
-          className="center"
-          variant="info"
-        >
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </Col>
-    );
+    return <Loader />;
   }
 
   return (

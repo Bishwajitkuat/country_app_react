@@ -7,8 +7,8 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import CountryCard from "./CountryCard";
 import { initializedCountries } from "../features/countries/countriesSlice";
-import { Spinner } from "react-bootstrap";
 import { getFavouritesFromSource } from "../features/countries/favoritesSlice";
+import Loader from "./Loader";
 
 const Countries = () => {
   const dispatch = useDispatch();
@@ -35,18 +35,7 @@ const Countries = () => {
   }, [dispatch]);
 
   if (loading) {
-    return (
-      <Container>
-        <Spinner
-          animation="border"
-          role="status"
-          className="center"
-          varient="info"
-        >
-          <span className="visually-hidden">Loading......</span>
-        </Spinner>
-      </Container>
-    );
+    return <Loader />;
   }
 
   return (
