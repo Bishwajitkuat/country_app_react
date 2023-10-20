@@ -22,7 +22,6 @@ export const initializedCountries = () => {
     const countries = await countriesAPI.getAll();
     dispatch(getCountries(countries));
     dispatch(isLoading(false));
-    // setTimeout(() => dispatch(isLoading(false)), 500);
   };
 };
 
