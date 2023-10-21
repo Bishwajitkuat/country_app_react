@@ -30,10 +30,6 @@ function WeatherCard({ weather, loading, errors, capital }) {
           The weather in {capital} is {weather.weather[0].description}
         </p>
       </div>
-      {errors && (
-        <p>Sorry, we don't have weather information for this country</p>
-      )}
-      {!errors && weather && <div></div>}
     </div>
   );
 }
