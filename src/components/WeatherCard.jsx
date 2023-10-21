@@ -1,4 +1,8 @@
+import Loader from "./Loader";
+
 function WeatherCard({ weather, loading, errors, capital }) {
+  if (loading) return <Loader />;
+  if (errors) return <div>weater data can not be found</div>;
   return (
     <div className="container">
       <div className="row justify-content-start">

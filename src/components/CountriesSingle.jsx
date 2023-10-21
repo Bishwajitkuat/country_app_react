@@ -34,6 +34,8 @@ const CountriesSingle = () => {
   useEffect(() => {
     async function featchData() {
       try {
+        setError(false);
+        setLoading(true);
         const res = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&units=metric&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`
         );
