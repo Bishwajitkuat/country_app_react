@@ -6,12 +6,13 @@ import CountryCard from "./CountryCard";
 import {
   getFavouritesFromSource,
   clearFavourites,
+  getFavourites,
 } from "../features/countries/favoritesSlice";
 import Loader from "./Loader";
 
 const Favourites = () => {
   const dispatch = useDispatch();
-
+  const user = useSelector((state) => state.users.user);
   let countriesList = useSelector((state) => state.countries.countries);
   const favouritesList = useSelector((state) => state.favourites.favourites);
   const loadingCountry = useSelector((state) => state.countries.loading);
@@ -32,8 +33,9 @@ const Favourites = () => {
 
   useEffect(() => {
     dispatch(initializedCountries());
-    dispatch(getFavouritesFromSource());
-  }, [dispatch]);
+    if (user) dispatch(getFavouritesFromSource());
+    else dispatch(getFavourites([]));
+  }, [dispatch, user]);
 
   if (loadingCountry || loadingFavourites) {
     return <Loader />;

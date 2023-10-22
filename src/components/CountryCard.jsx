@@ -1,15 +1,13 @@
 import { Card, Col, ListGroup } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourite,
   removeFavourite,
 } from "../features/countries/favoritesSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../auth/firebase";
 
 function CountryCard({ country }) {
-  const [user] = useAuthState(auth);
+  const user = useSelector((state) => state.users.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currency_name = country?.currencies
