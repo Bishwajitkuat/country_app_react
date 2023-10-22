@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFavourite,
+  getFavourites,
   getFavouritesFromSource,
   removeFavourite,
 } from "../features/countries/favoritesSlice";
@@ -13,11 +14,9 @@ import Map from "./Map";
 
 import { initializedCountries } from "../features/countries/countriesSlice";
 import Loader from "./Loader";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../auth/firebase";
 
 const CountriesSingle = () => {
-  const [user] = useAuthState(auth);
+  const user = useSelector((state) => state.users.user);
   const location = useLocation();
   const navigate = useNavigate();
   const countriesList = useSelector((state) => state.countries.countries);
@@ -50,8 +49,9 @@ const CountriesSingle = () => {
     }
     featchData();
     dispatch(initializedCountries());
-    dispatch(getFavouritesFromSource());
-  }, [country.capital, dispatch]);
+    if (user) dispatch(getFavouritesFromSource());
+    else dispatch(getFavourites([]));
+  }, [country.capital, dispatch, user]);
 
   const handleFavourite = (name) => {
     if (!user) {
