@@ -16,6 +16,7 @@ import { initializedCountries } from "../features/countries/countriesSlice";
 import Loader from "./Loader";
 
 const CountriesSingle = () => {
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const user = useSelector((state) => state.users.user);
   const location = useLocation();
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const CountriesSingle = () => {
     dispatch(initializedCountries());
     if (user) dispatch(getFavouritesFromSource());
     else dispatch(getFavourites([]));
+    setIsLoadingLocal(false);
   }, [country.capital, dispatch, user]);
 
   const handleFavourite = (name) => {
@@ -69,7 +71,7 @@ const CountriesSingle = () => {
     return countriesList.filter((country) => country.cca3 === c)[0];
   };
 
-  if (loading) return <Loader />;
+  if (loading || isLoadingLocal) return <Loader />;
 
   return (
     <div className="container container-xxl p-3 pt-0 text-white">

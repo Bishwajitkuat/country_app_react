@@ -19,6 +19,7 @@ export const favouritesSlice = createSlice({
     },
     getFavourites(state, action) {
       state.favourites = action.payload;
+      state.isLoading = false;
     },
     addFavourite(state, action) {
       if (state.favourites.some((fav) => fav === action.payload))

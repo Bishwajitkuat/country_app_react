@@ -11,8 +11,9 @@ import {
 import Loader from "./Loader";
 
 const Favourites = () => {
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.user);
+  const { user, isLoadingUser } = useSelector((state) => state.users);
   let countriesList = useSelector((state) => state.countries.countries);
   const favouritesList = useSelector((state) => state.favourites.favourites);
   const loadingCountry = useSelector((state) => state.countries.loading);
@@ -35,9 +36,10 @@ const Favourites = () => {
     dispatch(initializedCountries());
     if (user) dispatch(getFavouritesFromSource());
     else dispatch(getFavourites([]));
+    setIsLoadingLocal(false);
   }, [dispatch, user]);
 
-  if (loadingCountry || loadingFavourites) {
+  if (loadingCountry || loadingFavourites || isLoadingUser || isLoadingLocal) {
     return <Loader />;
   }
 

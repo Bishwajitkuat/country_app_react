@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../features/users/usersSlice";
 
 function Register() {
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,9 +29,10 @@ function Register() {
       return;
     }
     if (user) navigate("/countries");
+    setIsLoadingLocal(false);
   }, [user, errorUser]);
 
-  if (isLoadingUser) return <Loader />;
+  if (isLoadingUser || isLoadingLocal) return <Loader />;
   if (!user)
     return (
       <div className="row justify-content-center">

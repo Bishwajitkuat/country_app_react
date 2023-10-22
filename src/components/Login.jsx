@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 
 function Login() {
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +23,9 @@ function Login() {
       return;
     }
     if (user) navigate("/countries");
+    setIsLoadingLocal(false);
   }, [user, isLoadingUser]);
-  if (isLoadingUser) return <Loader />;
+  if (isLoadingUser || isLoadingLocal) return <Loader />;
   if (!user)
     return (
       <div className="row justify-content-center  p-5">

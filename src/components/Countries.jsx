@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -14,11 +13,15 @@ import {
 import Loader from "./Loader";
 
 const Countries = () => {
+  const [isLoadingLocal, setIsLoadingLocal] = useState(true);
   const dispatch = useDispatch();
   const countriesList = useSelector((state) => state.countries.countries);
   const favouritesList = useSelector((state) => state.favourites.favourites);
-  const user = useSelector((state) => state.users.user);
-  const loading = useSelector((state) => state.countries.isLoading);
+  const { user, isLoadingUser } = useSelector((state) => state.users);
+  const isLoadingCountries = useSelector((state) => state.countries.isLoading);
+  const isLoadingFavourites = useSelector(
+    (state) => state.favourites.isLoading
+  );
 
   // adding favourite propety to each country object, value would be true if it exists in favouritesList
   const countriesWithFavourite = countriesList.map((country) => {
@@ -37,11 +40,16 @@ const Countries = () => {
     dispatch(initializedCountries());
     if (user) dispatch(getFavouritesFromSource());
     else dispatch(getFavourites([]));
+    setIsLoadingLocal(false);
   }, [dispatch, user]);
-  if (loading) {
-    return <Loader />;
-  }
 
+  if (
+    isLoadingCountries ||
+    isLoadingFavourites ||
+    isLoadingUser ||
+    isLoadingLocal
+  )
+    return <Loader />;
   return (
     <Container fluid>
       <Row>
