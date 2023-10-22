@@ -59,7 +59,7 @@ const Favourites = () => {
       </Row>
       <Row className="justify-content-center">
         <Button
-          className="col-2 m-3"
+          className="col-6 col-md-3 m-3"
           onClick={() => {
             dispatch(clearFavourites());
           }}
