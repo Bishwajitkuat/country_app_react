@@ -7,13 +7,17 @@ import Row from "react-bootstrap/Row";
 import { useDispatch, useSelector } from "react-redux";
 import CountryCard from "./CountryCard";
 import { initializedCountries } from "../features/countries/countriesSlice";
-import { getFavouritesFromSource } from "../features/countries/favoritesSlice";
+import {
+  getFavourites,
+  getFavouritesFromSource,
+} from "../features/countries/favoritesSlice";
 import Loader from "./Loader";
 
 const Countries = () => {
   const dispatch = useDispatch();
   const countriesList = useSelector((state) => state.countries.countries);
   const favouritesList = useSelector((state) => state.favourites.favourites);
+  const user = useSelector((state) => state.users.user);
   const loading = useSelector((state) => state.countries.isLoading);
 
   // adding favourite propety to each country object, value would be true if it exists in favouritesList
@@ -31,9 +35,9 @@ const Countries = () => {
     : countriesWithFavourite;
   useEffect(() => {
     dispatch(initializedCountries());
-    dispatch(getFavouritesFromSource());
-  }, [dispatch]);
-
+    if (user) dispatch(getFavouritesFromSource());
+    else dispatch(getFavourites([]));
+  }, [dispatch, user]);
   if (loading) {
     return <Loader />;
   }

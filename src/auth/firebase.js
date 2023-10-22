@@ -2,12 +2,7 @@
 import { initializeApp } from "firebase/app";
 
 import "firebase/firestore";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  getAuth,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import {
   getFirestore,
   addDoc,
@@ -17,6 +12,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,33 +33,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const db = getFirestore(app);
-
-const loginWithEmailAndPassword = async (email, password) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
-const registerWithAndPassword = async (name, email, password) => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      name: name,
-      authProvider: "local",
-      email,
-    });
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
-const logout = () => {
-  signOut(auth);
-};
 
 // adding name of the country to the users/uid/favourites table
 export const addFavouriteToFirebase = async (uid, name) => {
@@ -115,4 +84,4 @@ export const clearFavouritesFromFirebase = async (uid) => {
   }
 };
 
-export { auth, db, loginWithEmailAndPassword, registerWithAndPassword, logout };
+export { auth, db, app };

@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import { LinkContainer } from "react-router-bootstrap";
-import { auth, logout } from "../auth/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { logout } from "../features/users/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
 
 const Layout = () => {
-  const [user] = useAuthState(auth);
+  const dispatch = useDispatch();
+  const { user, isLoadingUser, errorUser } = useSelector(
+    (state) => state.users
+  );
+  useEffect(() => {
+    if (errorUser) {
+      alert(errorUser);
+      return;
+    }
+  }, [errorUser]);
+  if (isLoadingUser) return <Loader />;
   return (
     <Container>
       <Row>
@@ -36,7 +47,10 @@ const Layout = () => {
               </Nav>
             </Navbar.Collapse>
             {user && (
-              <button className="btn btn-outline-primary" onClick={logout}>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => dispatch(logout())}
+              >
                 Logout
               </button>
             )}

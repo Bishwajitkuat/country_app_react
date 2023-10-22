@@ -1,29 +1,36 @@
 import { useEffect, useState } from "react";
-import { auth, registerWithAndPassword } from "../auth/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../features/users/usersSlice";
 
 function Register() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const { user, isLoadingUser, errorUser } = useSelector(
+    (state) => state.users
+  );
   const navigate = useNavigate();
 
-  const register = () => {
+  const registerHandler = () => {
     if (!name) alert("Please enter name");
     else if (password === "") alert("Please enter password");
     else if (password !== confirmPassword)
       alert("Password did not match in confirm password");
-    else registerWithAndPassword(name, email, password);
+    else dispatch(register(name, email, password));
   };
   useEffect(() => {
+    if (errorUser) {
+      alert(errorUser);
+      return;
+    }
     if (user) navigate("/countries");
-  }, [user, loading]);
+  }, [user, errorUser]);
 
-  if (loading) return <Loader />;
+  if (isLoadingUser) return <Loader />;
   if (!user)
     return (
       <div className="row justify-content-center">
@@ -105,7 +112,10 @@ function Register() {
           </div>
 
           <div className="text-center mt-5">
-            <button className="btn btn-outline-primary" onClick={register}>
+            <button
+              className="btn btn-outline-primary"
+              onClick={registerHandler}
+            >
               Register
             </button>
           </div>

@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
-import { auth, loginWithEmailAndPassword } from "../auth/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { logIn } from "../features/users/usersSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "./Loader";
 
 function Login() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const { user, isLoadingUser, errorUser } = useSelector(
+    (state) => state.users
+  );
   const navigate = useNavigate();
 
+  const handleLogin = (email, password) => {
+    dispatch(logIn(email, password));
+  };
   useEffect(() => {
-    if (loading) return;
+    if (errorUser) {
+      alert(errorUser);
+      return;
+    }
     if (user) navigate("/countries");
-  }, [user, loading]);
+  }, [user, isLoadingUser]);
+  if (isLoadingUser) return <Loader />;
   if (!user)
     return (
       <div className="row justify-content-center  p-5">
@@ -56,7 +67,7 @@ function Login() {
           <div className="text-center mt-4">
             <button
               className="btn btn-outline-primary"
-              onClick={() => loginWithEmailAndPassword(email, password)}
+              onClick={(e) => handleLogin(email, password)}
             >
               Login
             </button>
